@@ -15,12 +15,15 @@ body{
 .panel{
     margin-bottom: 0px;
 }
+
 .chat-window{
     bottom:0;
     position:fixed;
     float:right;
     margin-left:10px;
+    z-index: 100;
 }
+
 .chat-window > div > .panel{
     border-radius: 5px 5px 0 0;
 }
