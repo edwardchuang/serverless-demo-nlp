@@ -5,6 +5,9 @@
   },
   "hosting": {
     "public": "public",
+    "rewrites": [
+      { "source": "/processNLP", "function": "processNLP"}
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

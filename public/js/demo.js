@@ -81,8 +81,28 @@ function updateTime() {
 }
 
 function submit() {
-  receiveMessage(userAvatar, $("#btn-input").val(), nameAvatar);
+  var txt = $("#btn-input").val();
+  receiveMessage(userAvatar, txt, nameAvatar);
   $("#btn-input").val('');
+  $.ajax({
+      url: '/processNLP',
+      type: 'POST',
+      data: {'content': txt, 'language': 'zh-Hant'},
+      success: (response) => {
+        var face = '';
+        if (response.score <= -0.25) {
+            face = '<i class="em-svg em-angry"></i>';
+        } else if (response.score <= 0.25) {
+            face = '<i class="em-svg em-anguished"></i>';
+        } else {
+            face = '<i class="em-svg em-smile"></i>';
+        }
+        sendMessage('/images/gcp_logo.png', `根據你的文字，我決定給你一個 ${face}`, 'Serverless 君');
+      },
+      error: (err) => {
+        sendMessage('/images/gcp_logo.png', '我不太清楚你說的是什麼意思耶？可以請你再說一次嗎？', 'Serverless 君');
+      }
+  })
 }
 
 var userAvatar = '';
@@ -109,7 +129,7 @@ $(() => {
   var rnd = (new Date().getMilliseconds() % 15) + 1;
   userAvatar = `/images/avatar-${rnd}.png`;
   nameAvatar = names[rnd-1];
-
+  
   initMessage();
   setInterval(() => { updateTime() }, 10000);
 })
