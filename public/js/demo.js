@@ -73,9 +73,24 @@ var userAvatar = '';
 var nameAvatar = '';
 
 $(() => {
-  var names = ['Fred Flintstone','Elmer Fudd','Dr. Zoidberg','Daffy Duck','Daria','Bart Simpson','C. Burns','Mr. Magoo','Arthur','Fat Albert','Abe Simpson','Herbert Garrison'];
+  var names = [
+    'Bart',
+    'Daria',
+    'Ren & Stimpy',
+    'Yogi Bear',
+    'Pepe Le Pew',
+    'Bobby Hill',
+    'Spider-Man',
+    'Stan Smith',
+    'Abe Simpson',
+    'Underdog',
+    'Eric Cartman',
+    'Marvin Martian',
+    'Donald Duck',
+    'Speed Racer',
+    'Elmer Fudd'];
 
-  var rnd = (new Date().getMilliseconds() % 12) + 1;
+  var rnd = (new Date().getMilliseconds() % 15) + 1;
   userAvatar = `/images/avatar-${rnd}.png`;
   nameAvatar = names[rnd-1];
 
@@ -105,7 +120,6 @@ $(document).on('focus', '.panel-footer input.chat_input', function (e) {
 });
 
 $(document).on('click', '.icon_close', function (e) {
-    //$(this).parent().parent().parent().parent().remove();
     $( "#chat_window_1" ).remove();
 });
 
