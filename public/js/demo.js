@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. 
 */
-
+var timestamp = -1;
+    
 function scrollDown() {
   $('#msg_aera').animate({scrollTop: $('#msg_aera').prop("scrollHeight")}, 500);
 }
@@ -170,4 +171,41 @@ $(document).on('keypress', '#btn-input', function (e) {
       submit();
     }
   }
+});
+
+function drawSentimentalWall(type) {
+    var bgHeight = $(document).height();
+    var bgWidth = $(document).width();
+    var X = Math.floor(Math.random() * bgWidth);
+    var Y = Math.floor(Math.random() * bgHeight);
+
+    var face = $(document.createElement('div'))
+    face.addClass('em-svg').addClass(`${type}`);
+    face.css({top: X, left: Y, position: 'absolute'})
+
+    $("#background").append(face);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        var db = firebase.firestore();
+        db.settings({timestampsInSnapshots: true});
+        db.collection("sentimentwall").onSnapshot((snapshot) => {
+            snapshot.docChanges().forEach((doc) => {
+                if (doc.type == 'added') {
+                    if (doc.doc.data().ret.score <= -0.25) {
+                        face = 'em-angry';
+                    } else if (doc.doc.data().ret.score <= 0.25) {
+                        face = 'em-anguished';
+                    } else {
+                        face = 'em-smile';
+                    }
+                    drawSentimentalWall(face);
+                }
+            })
+        }, function(error) {
+        });
+    } catch (e) {
+        console.log(e);
+    }
 });
