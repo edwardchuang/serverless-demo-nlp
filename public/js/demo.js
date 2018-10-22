@@ -174,8 +174,8 @@ $(document).on('keypress', '#btn-input', function (e) {
 });
 
 function drawSentimentalWall(type) {
-    var bgHeight = $(document).height();
-    var bgWidth = $(document).width();
+    var bgHeight = Math.floor($(window).height() * 0.8);
+    var bgWidth = $(window).width();
     var X = Math.floor(Math.random() * bgWidth);
     var Y = Math.floor(Math.random() * bgHeight);
 
