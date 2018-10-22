@@ -8,6 +8,12 @@
     "rewrites": [
       { "source": "/processNLP", "function": "processNLP"}
     ],
+    "headers": [
+      {
+        "source": "/",
+        "headers": [{"key": "Link", "value": "</js/demo.js>;rel=preload;as=script,</css/style.css>;rel=preload;as=style"}]
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
