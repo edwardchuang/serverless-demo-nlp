@@ -6,7 +6,8 @@
   "hosting": {
     "public": "public",
     "rewrites": [
-      { "source": "/processNLP", "function": "processNLP"}
+      { "source": "/processNLP", "function": "processNLP"},
+      { "source": "/workerBigQuery", "function": "workerBigQuery"}
     ],
     "headers": [
       {
