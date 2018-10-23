@@ -173,15 +173,19 @@ $(document).on('keypress', '#btn-input', function (e) {
   }
 });
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function drawSentimentalWall(type) {
     var bgHeight = Math.floor($(window).height() * 0.8);
     var bgWidth = $(window).width();
-    var X = Math.floor(Math.random() * bgWidth);
-    var Y = Math.floor(Math.random() * bgHeight);
+    var X = getRandomInt(80, bgWidth-80); //Math.floor(Math.random() * bgWidth);
+    var Y = getRandomInt(80, bgHeight-80); //Math.floor(Math.random() * bgHeight);
 
     var face = $(document.createElement('div'))
     face.addClass('em-svg').addClass(`${type}`);
-    face.css({top: X, left: Y, position: 'absolute'})
+    face.css({top: Y, left: X, position: 'absolute'})
 
     $("#background").append(face);
 }
