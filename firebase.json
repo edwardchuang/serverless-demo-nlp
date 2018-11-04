@@ -7,7 +7,8 @@
     "public": "public",
     "rewrites": [
       { "source": "/processNLP", "function": "processNLP"},
-      { "source": "/workerBigQuery", "function": "workerBigQuery"}
+      { "source": "/workerBigQuery", "function": "workerBigQuery"},
+      { "source": "/health/check", "function": "healthCheck"}
     ],
     "headers": [
       {

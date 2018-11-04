@@ -127,3 +127,7 @@ exports.workerBigQuery = functions.https.onRequest((request, response) => {
       });
       
 });
+
+exports.healthCheck = functions.https.onRequest((request, response) => {
+    return response.status(200).send('OK'); // always ok for health check
+});
