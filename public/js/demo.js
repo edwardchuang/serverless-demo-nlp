@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         db.collection("sentimentwall").onSnapshot((snapshot) => {
             snapshot.docChanges().forEach((doc) => {
                 if (doc.type == 'added') {
+                    var face = '';
                     if (doc.doc.data().score <= -0.25) {
                         face = 'em-angry';
                     } else if (doc.doc.data().score <= 0.25) {
