@@ -13,7 +13,7 @@
     "headers": [
       {
         "source": "/",
-        "headers": [{"key": "Link", "value": "</js/demo.js>;rel=preload;as=script,</css/style.css>;rel=preload;as=style"}]
+        "headers": [{"key": "Link", "value": "</dist/demo.min.js>;rel=preload;as=script,</dist/style.min.css>;rel=preload;as=style"}]
       }
     ],
     "ignore": [
