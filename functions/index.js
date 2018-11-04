@@ -1,11 +1,21 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const language = require('@google-cloud/language').v1beta2;
-const client = new language.LanguageServiceClient({projectId: 'serverless-demo-49cb3', keyFilename: 'serverless-demo-49cb3-208a1e50d811.json'});
 const PubSub = require('@google-cloud/pubsub');
-const pubsubClient = new PubSub({projectId: 'serverless-demo-49cb3', keyFilename: 'serverless-demo-49cb3-208a1e50d811.json'});
 const BigQuery = require('@google-cloud/bigquery');
-const bigqueryClient = new BigQuery({projectId: 'serverless-demo-49cb3', keyFilename: 'serverless-demo-49cb3-208a1e50d811.json'});
+const client = new language.LanguageServiceClient({
+    projectId: process.env.GCLOUD_PROJECT, 
+    credentials: functions.config().credential
+});
+
+const pubsubClient = new PubSub({
+    projectId: process.env.GCLOUD_PROJECT, 
+    credentials: functions.config().credentials
+});
+const bigqueryClient = new BigQuery({
+    projectId: process.env.GCLOUD_PROJECT, 
+    credentials: functions.config().credentials
+});
 
 admin.initializeApp(functions.config().firebase);
 const settings = {timestampsInSnapshots: true};
