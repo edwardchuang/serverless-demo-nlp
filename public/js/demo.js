@@ -121,7 +121,7 @@ function submit() {
         if (response.score <= -0.25) {
             face = '<i class="em-svg em-angry"></i>';
         } else if (response.score <= 0.25) {
-            face = '<i class="em-svg em-anguished"></i>';
+            face = '<i class="em-svg em-thinking_face"></i>';
         } else {
             face = '<i class="em-svg em-smile"></i>';
         }
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (doc.doc.data().score <= -0.25) {
                         face = 'em-angry';
                     } else if (doc.doc.data().score <= 0.25) {
-                        face = 'em-anguished';
+                        face = 'em-thinking_face';
                     } else {
                         face = 'em-smile';
                     }
