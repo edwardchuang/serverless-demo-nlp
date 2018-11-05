@@ -63,7 +63,6 @@ exports.processNLP = functions.https.onRequest((request, response) => {
     client
     .analyzeSentiment({"document": document, "encodingType": "UTF8"})
     .then(results => {
-      console.log(results);
       const sentiment = results[0].documentSentiment;
       var remoteIp = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
       var ret = {
