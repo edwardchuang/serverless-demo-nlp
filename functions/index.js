@@ -3,11 +3,11 @@ const admin = require('firebase-admin');
 const language = require('@google-cloud/language').v1beta2;
 const PubSub = require('@google-cloud/pubsub');
 const BigQuery = require('@google-cloud/bigquery');
+
 const client = new language.LanguageServiceClient({
     projectId: process.env.GCLOUD_PROJECT, 
-    credentials: functions.config().credential
+    credentials: functions.config().credentials
 });
-
 const pubsubClient = new PubSub({
     projectId: process.env.GCLOUD_PROJECT, 
     credentials: functions.config().credentials
