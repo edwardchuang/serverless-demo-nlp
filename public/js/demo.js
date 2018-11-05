@@ -14,7 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License. 
 */
 var timestamp = -1;
-    
+
+var translations = {
+    'zh-TW': {
+        'robosname': 'Serverless 君',
+        'placeholder': '在這裡寫下你想說的話 ...',
+        'submit': '送出',
+        'greetings': '您好，我是 Serverless 君！歡迎你在這裡寫下你對 Serverless 的想法或是任何的話！',
+        'txtPardon': '我不太清楚你說的是什麼意思耶？可以請你再說一次嗎？',
+        'txtResult': '根據你的文字，我決定給你一個 ',
+        'txt1Min': ' 小於一分鐘前',
+        'txtMins': ' 分鐘前',
+        'txtHours': ' 小時前',
+        'txtDays': ' 天前'
+    },
+    'en': {
+        'robosname': 'Serverless Guy',
+        'placeholder': 'Write anything here ...',
+        'submit': 'Submit',
+        'greetings': 'Howdy! I am Serverless Guy, please input anything you want to say blow!',
+        'txtPardon': 'Pardon me, say again please?',
+        'txtResult': 'According to your words, there\'s a face: ',
+        'txt1Min': ' Less than a minute',
+        'txtMins': ' Minute(s) ago',
+        'txtHours': ' Hour(s) ago',
+        'txtDays': ' Day(s) ago'
+    }
+};
+
 function scrollDown() {
   $('#msg_aera').animate({scrollTop: $('#msg_aera').prop("scrollHeight")}, 500);
 }
@@ -58,7 +85,7 @@ function receiveMessage(avatar, msg, who) {
 }
 
 function initMessage() {
-  sendMessage('/images/gcp_logo.png', '您好，我是 Serverless 君！歡迎你在這裡寫下你對 Serverless 的想法或是任何的話！', 'Serverless 君');
+  sendMessage('/images/gcp_logo.png', trans.greetings, trans.robosname);
 }
 
 function updateTime() {
@@ -70,13 +97,13 @@ function updateTime() {
     var prefix = $(v).html().substring(0, $(v).html().indexOf(separate)+2);
     //console.log(date1, delta, minutes);
     if (minutes < 1) {
-      $(v).html(prefix + ' 小於一分鐘前');
+      $(v).html(prefix + trans.txt1Min);
     } else if (minutes < 60) {
-      $(v).html(prefix + minutes + ' 分鐘前');
+      $(v).html(prefix + minutes + trans.txtMins);
     } else if (minutes < 1440) {
-      $(v).html(prefix + Math.floor(minutes / 60) + ' 小時前');
+      $(v).html(prefix + Math.floor(minutes / 60) + trans.txtHours);
     } else {
-      $(v).html(prefix + Math.floor(minutes / 1440) + ' 天前');
+      $(v).html(prefix + Math.floor(minutes / 1440) + trans.txtDays);
     }
   });
 }
@@ -98,16 +125,17 @@ function submit() {
         } else {
             face = '<i class="em-svg em-smile"></i>';
         }
-        sendMessage('/images/gcp_logo.png', `根據你的文字，我決定給你一個 ${face}`, 'Serverless 君');
+        sendMessage('/images/gcp_logo.png', `${trans.txtResult} ${face}`, trans.robosname);
       },
       error: (err) => {
-        sendMessage('/images/gcp_logo.png', '我不太清楚你說的是什麼意思耶？可以請你再說一次嗎？', 'Serverless 君');
+        sendMessage('/images/gcp_logo.png', trans.txtPardon, trans.robosname);
       }
   })
 }
 
 var userAvatar = '';
 var nameAvatar = '';
+var trans = null;
 
 $(() => {
   var names = [
@@ -131,6 +159,14 @@ $(() => {
   userAvatar = `/images/avatar-${rnd}.png`;
   nameAvatar = names[rnd-1];
   
+  if (undefined === (trans = translations[navigator.language])) {
+    trans = translations['en'];
+  }
+
+  $("#btn-chat").text(trans.submit);
+  $("#btn-input").attr('placeholder', trans.placeholder);
+  $("#chatWindowTitle").html(`Chat - ${trans.robosname}`);
+
   initMessage();
   setInterval(() => { updateTime() }, 10000);
 })
